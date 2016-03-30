@@ -2,16 +2,22 @@ fetch('/api/projects')
   .then((res) => res.json())
   .then(renderProjects);
 
-createProject({ name: 'My second project' })
-  .then(() => getProjectById(1))
-  .then(() => updateProjectById(1, { name: 'Changed project' }))
-  .then(() => removeProjectById(2))
-  .then(() => getAllTasksByProjectId(1))
-  .then(() => createTaskByProjectId(1, { name: 'My new task' }))
-  .then(() => getTaskByIdByProjectId(1, 1))
-  .then(() => updateTaskByIdByProjectId(1, 1, { done: true }))
-  .then(() => removeTaskByIdByProjectId(1, 1))
-  .catch((err) => console.log(err))
+function getAllProjects(callback) {
+  return fetch('/api/projects')
+    .then((res) => res.json())
+    .then(callback);
+}
+
+// createProject({ name: 'My second project' })
+//   .then(() => getProjectById(1))
+//   .then(() => updateProjectById(1, { name: 'Changed project' }))
+//   .then(() => removeProjectById(2))
+//   .then(() => getAllTasksByProjectId(1))
+//   .then(() => createTaskByProjectId(1, { name: 'My new task' }))
+//   .then(() => getTaskByIdByProjectId(1, 1))
+//   .then(() => updateTaskByIdByProjectId(1, 1, { done: true }))
+//   .then(() => removeTaskByIdByProjectId(1, 1))
+//   .catch((err) => console.log(err))
 
 
 // Tasks
@@ -89,7 +95,6 @@ function updateProjectById(id, project) {
     }
   })
   .then((res) => res.json())
-  .then((json) => console.log(json))
 }
 
 function removeProjectById(id) {
